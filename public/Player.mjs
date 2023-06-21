@@ -77,13 +77,16 @@ class Player {
 
   calculateRank(arr) {
 
-    let currentRanking = arr.reduce((rank, score) => {
+    console.log(arr);
+    let currentRanking = arr.reduce((rank, value) => {
 
-      return this.score > score.score? rank + 1  : rank;
+      return this.score > value.score? rank + 1  : rank;
     }, 0);
+
     currentRanking = arr.length - currentRanking;
-    //console.log(`Rank: ${currentRanking}/${arr.length}`);
-    this.rank = currentRanking;
+    
+    console.log(this.id + ' ' + currentRanking);
+
     return `Rank: ${currentRanking}/${arr.length}`;
   }
 

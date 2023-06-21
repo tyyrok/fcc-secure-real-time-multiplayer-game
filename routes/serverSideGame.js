@@ -35,7 +35,7 @@ module.exports = function(socket, io) {
         socket.emit('new game', { x: player.x, 
                                     y: player.y,
                                     score: player.score,
-                                    id: player.id }, collectible, Array.from(usersMap, ([name, value]) => ({name, value})) );
+                                    id: player.id }, collectible, Array.from(usersMap, ([name, score]) => ({name, score})) );
     
         socket.on('movement', (key) => {
 
@@ -55,12 +55,12 @@ module.exports = function(socket, io) {
                     id: Date.now()
                 });
                 socket.emit('newPosition', { x: player.x,
-                    y: player.y });
-                socket.emit('new round', player.score, collectible, Array.from(usersMap, ([name, value]) => ({name, value})));
+                    y: player.y }, Array.from(usersMap, ([name, score]) => ({name, score})));
+                socket.emit('new round', player.score, collectible, Array.from(usersMap, ([name, score]) => ({name, score})) );
             } else {
 
                 socket.emit('newPosition', { x: player.x,
-                                         y: player.y });
+                                         y: player.y }, Array.from(usersMap, ([name, score]) => ({name, score})));
             }
             
 

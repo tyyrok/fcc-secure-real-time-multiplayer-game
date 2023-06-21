@@ -36,7 +36,7 @@ socket.on('new game', (obj, coin, users) => {
     });
 
     player.draw(canvas, context, collectible, mainPlayerArt, users, bronzeCoinArt);
-    player.calculateRank(users);
+    //player.calculateRank(users);
     
     //console.log(player.calculateRank(users));
 
@@ -46,9 +46,10 @@ socket.on('new game', (obj, coin, users) => {
 
         if (key == 'W' || key == 'A' || key == 'S' || key == 'D') {
             socket.emit('movement', {key} );
+            player.movePlayer(key, 10);
         }
     })
-    socket.on('newPosition', (obj) => {
+    socket.on('newPosition', (obj, users) => {
                 
         //console.log(obj);
         player.x = obj.x;
