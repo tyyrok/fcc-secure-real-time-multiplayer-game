@@ -24,7 +24,7 @@ module.exports = function(socket, io) {
         });
 
         usersMap.set(player.id, player.score);
-        console.log(usersMap);
+        //console.log(usersMap);
 
         let collectible = new Collectible({
             x: setCollectWOCollision(player, 'x'),

@@ -20,13 +20,15 @@ class Player {
 
   movePlayer(dir, speed) {
     switch (dir) {
-      case 'W':
+      case 'up':
+      case 'W' :
         if ( (this.y - speed) < 0) {
           this.y = 0;
         } else {
           this.y -= speed;
         }
         break;
+      case 'left':
       case 'A':
         if ( (this.x - speed) < 0) {
           this.x = 0;
@@ -34,6 +36,7 @@ class Player {
           this.x -= speed;
         }
         break;
+      case 'down':
       case 'S':
         if ( (this.y + speed + playerHeight) >= canvasHeight) {
           this.y = canvasHeight - playerHeight;
@@ -41,6 +44,7 @@ class Player {
           this.y += speed;
         }
         break;
+      case 'right':
       case 'D':
         if ( (this.x + speed + playerWidth) >= canvasWidth) {
           this.x = canvasWidth - playerWidth;
@@ -72,24 +76,32 @@ class Player {
   }
 
   calculateRank(arr) {
-    let currentRanking = arr.reduce((rank, value) => {
 
-      return this.score > value.value? rank + 1  : rank;
+    let currentRanking = arr.reduce((rank, score) => {
+
+      return this.score > score.score? rank + 1  : rank;
     }, 0);
     currentRanking = arr.length - currentRanking;
+    //console.log(`Rank: ${currentRanking}/${arr.length}`);
+    this.rank = currentRanking;
     return `Rank: ${currentRanking}/${arr.length}`;
   }
 
-  draw(canvas, context, coin) {
+  draw(canvas, context, coin, img, usersArray, coinImg) {
 
     context.fillStyle = canvasColor;
     context.fillRect(0, 0, canvasWidth, canvasHeight); 
 
+    document.getElementsByTagName('h1')[0].innerHTML = `Secure Real Time Multiplayer   Game ${this.calculateRank(usersArray)}   Score ${this.score}` ;
+
+
     context.fillStyle = gamerColor;
-    context.fillRect(this.x, this.y, playerWidth, playerHeight);
+    context.drawImage(img, this.x, this.y);
+    //context.fillRect(this.x, this.y, playerWidth, playerHeight);
 
     context.fillStyle = coinColor;
-    context.fillRect(coin.x, coin.y, collectibleWidth, collectibleHeight);
+    context.drawImage(coinImg, coin.x, coin.y)
+    //context.fillRect(coin.x, coin.y, collectibleWidth, collectibleHeight);
   }
 }
 
